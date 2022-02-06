@@ -147,13 +147,4 @@ class QChange_plan(QDialog, QMainWindow):
             self.update_combo_files()
             self.line_new_file.setText("Файл успешно сохранен")
 
-    def closeEvent(self, event):
-        self.con.close()
-        reply = QMessageBox.question(
-            self, 'Вопрос', 'Точно хотите закрыть?',
-            QMessageBox.Yes, QMessageBox.No
-        )
-        if reply == QMessageBox.Yes:
-            event.accept()
-        else:
-            event.ignore()
+

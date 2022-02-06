@@ -9,12 +9,4 @@ class MyClassesAndLessons(QDialog):
         super().__init__()
         uic.loadUi('frontend\ClasseAndLessons.ui', self)
 
-    def closeEvent(self, event):
-        reply = QMessageBox.question(
-            self, 'Вопрос', 'Точно хотите закрыть?',
-            QMessageBox.Yes, QMessageBox.No
-        )
-        if reply == QMessageBox.Yes:
-            event.accept()
-        else:
-            event.ignore()
+

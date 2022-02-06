@@ -165,12 +165,4 @@ class MyCreate_workload(QDialog):
                 self.push_done.setEnabled(True)
                 self.push_change.setEnabled(True)
 
-    def closeEvent(self, event):
-        reply = QMessageBox.question(
-            self, 'Вопрос', 'Точно хотите закрыть?',
-            QMessageBox.Yes, QMessageBox.No
-        )
-        if reply == QMessageBox.Yes:
-            event.accept()
-        else:
-            event.ignore()
+

@@ -8,13 +8,3 @@ class MyChange_schedule(QDialog, QMainWindow):
     def __init__(self):
         super().__init__()
         uic.loadUi('frontend/change_schedule.ui', self)
-
-    def closeEvent(self, event):
-        reply = QMessageBox.question(
-            self, 'Вопрос', 'Точно хотите закрыть?',
-            QMessageBox.Yes, QMessageBox.No
-        )
-        if reply == QMessageBox.Yes:
-            event.accept()
-        else:
-            event.ignore()

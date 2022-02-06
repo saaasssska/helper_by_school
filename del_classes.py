@@ -44,12 +44,3 @@ class My_del_classes(QDialog, QMainWindow):
         self.select_data()
         self.update_combo_box()
 
-    def closeEvent(self, event):
-        reply = QMessageBox.question(
-            self, 'Вопрос', 'Точно хотите закрыть?',
-            QMessageBox.Yes, QMessageBox.No
-        )
-        if reply == QMessageBox.Yes:
-            event.accept()
-        else:
-            event.ignore()

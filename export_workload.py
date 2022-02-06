@@ -56,13 +56,4 @@ class MyExport_workload(QDialog):
         self.line_filename.clear()
 
 
-    def closeEvent(self, event):
-        reply = QMessageBox.question(
-            self, 'Вопрос', 'Точно хотите закрыть?',
-            QMessageBox.Yes, QMessageBox.No
-        )
-        if reply == QMessageBox.Yes:
-            event.accept()
-        else:
-            event.ignore()
 

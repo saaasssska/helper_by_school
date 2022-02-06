@@ -62,12 +62,3 @@ class QMyBuildings(QDialog, QMainWindow):
         self.loadTable()
         self.update_combo_box()
 
-    def closeEvent(self, event):
-        reply = QMessageBox.question(
-            self, 'Вопрос', 'Точно хотите закрыть?',
-            QMessageBox.Yes, QMessageBox.No
-        )
-        if reply == QMessageBox.Yes:
-            event.accept()
-        else:
-            event.ignore()

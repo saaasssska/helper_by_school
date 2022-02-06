@@ -78,12 +78,4 @@ class MyDefiniteTeacher(QDialog):
                                     ON teachers.id_teacher = teacher_workload.id_teacher;""")]
         self.combo_teacher_full_name.addItems(teachers)
 
-    def closeEvent(self, event):
-        reply = QMessageBox.question(
-            self, 'Вопрос', 'Точно хотите закрыть?',
-            QMessageBox.Yes, QMessageBox.No
-        )
-        if reply == QMessageBox.Yes:
-            event.accept()
-        else:
-            event.ignore()
+

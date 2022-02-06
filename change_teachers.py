@@ -129,13 +129,3 @@ class MyChange_teachers(QDialog):
         self.push_del_build.setEnabled(False)
         self.combo_subjects.setEnabled(False)
         self.combo_builds.setEnabled(False)
-
-    def closeEvent(self, event):
-        reply = QMessageBox.question(
-            self, 'Вопрос', 'Точно хотите закрыть?',
-            QMessageBox.Yes, QMessageBox.No
-        )
-        if reply == QMessageBox.Yes:
-            event.accept()
-        else:
-            event.ignore()

@@ -44,13 +44,17 @@ new_teachers = QNew_teachers()
 workload = MyTeacher_workload()
 class_menu = MyClasses_menu()
 delete_teacher = MyDelTeachers()
+
 create_work = MyCreate_workload()
 def_teacher = MyDefiniteTeacher()
 classroom_teachers = MyClassTeachers()
 problems = MyWorkloadProblems()
 export = MyExport_workload()
+
 change_teacher = MyChange_teachers()
+
 schedule = MyMake_schedule()
+
 hand_sched = MyHand_schedule()
 auto_sched = MyAuto_schedule()
 change_sched = MyChange_schedule()

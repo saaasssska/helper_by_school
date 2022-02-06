@@ -42,13 +42,3 @@ class MyDelTeachers(QDialog):
                 self.tableWidget.setItem(
                     i, j, QTableWidgetItem(str(elem)))
         self.tableWidget.resizeColumnsToContents()
-
-    def closeEvent(self, event):
-        reply = QMessageBox.question(
-            self, 'Вопрос', 'Точно хотите закрыть?',
-            QMessageBox.Yes, QMessageBox.No
-        )
-        if reply == QMessageBox.Yes:
-            event.accept()
-        else:
-            event.ignore()

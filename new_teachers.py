@@ -102,12 +102,3 @@ class QNew_teachers(QDialog, QMainWindow):
                 self.tableWidget.setItem(
                     i, j, QTableWidgetItem(str(elem)))
 
-    def closeEvent(self, event):
-        reply = QMessageBox.question(
-            self, 'Вопрос', 'Точно хотите закрыть?',
-            QMessageBox.Yes, QMessageBox.No
-        )
-        if reply == QMessageBox.Yes:
-            event.accept()
-        else:
-            event.ignore()

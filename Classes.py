@@ -81,13 +81,5 @@ class MyClasses(QDialog, QMainWindow):
         self.table_plan.resizeColumnsToContents()
         self.push_add_class.setEnabled(False)
 
-    def closeEvent(self, event):
-        reply = QMessageBox.question(
-            self, 'Вопрос', 'Точно хотите закрыть?',
-            QMessageBox.Yes, QMessageBox.No
-        )
-        if reply == QMessageBox.Yes:
-            event.accept()
-        else:
-            event.ignore()
+
 

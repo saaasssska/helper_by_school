@@ -85,12 +85,4 @@ class QMy_school_plan(QDialog, QMainWindow):
         self.tableWidget.setRowCount(0)
         self.tableWidget.resizeColumnsToContents()
 
-    def closeEvent(self, event):
-        reply = QMessageBox.question(
-            self, 'Вопрос', 'Точно хотите закрыть?',
-            QMessageBox.Yes, QMessageBox.No
-        )
-        if reply == QMessageBox.Yes:
-            event.accept()
-        else:
-            event.ignore()
+

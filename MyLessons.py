@@ -16,18 +16,6 @@ class QMyLessons(QDialog, QMainWindow):
         self.select_data()
         self.update_combo_box()
 
-
-    def closeEvent(self, event):
-        self.con.commit()
-        reply = QMessageBox.question(
-            self, 'Вопрос', 'Точно хотите закрыть?',
-            QMessageBox.Yes, QMessageBox.No
-        )
-        if reply == QMessageBox.Yes:
-            event.accept()
-        else:
-            event.ignore()
-
     def add_subject(self):
         cur = self.con.cursor()
         yet_yes = [i[0] for i in cur.execute("SELECT name FROM my_subjects").fetchall()]
