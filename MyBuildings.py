@@ -36,7 +36,8 @@ class QMyBuildings(QDialog, QMainWindow):
         if not name.isalnum() and not address.isalnum():
             pass
         cur = self.con.cursor()
-        cur.execute("INSERT INTO builds(name, address) VALUES(?, ?)", [name, address])
+        if len(name) != 0 and len(address) != 0:
+            cur.execute("INSERT INTO builds(name, address) VALUES(?, ?)", [name, address])
         self.con.commit()
         self.loadTable()
         self.name_biuld.clear()
