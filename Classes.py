@@ -21,6 +21,7 @@ class MyClasses(QDialog, QMainWindow):
         self.push_add_class.setEnabled(False)
         self.push_open_plan.clicked.connect(self.open_plan)
         self.push_add_class.clicked.connect(self.add_class)
+        self.update_class_teachers()
 
     def update_builds(self):
         cur = self.con.cursor()
@@ -34,6 +35,13 @@ class MyClasses(QDialog, QMainWindow):
         cur = self.con.cursor()
         self.combo_school_plans.addItems(
             [i[0] for i in cur.execute("SELECT name FROM files").fetchall()])
+
+    def update_class_teachers(self):
+        self.line_class_teacher.clear()
+        cur = self.con.cursor()
+        FIO = [' '.join(i) for i in self.con.cursor().execute('SELECT surname, name, patronymic FROM teachers').fetchall()]
+        print(FIO)
+        self.line_class_teacher.addItems(FIO)
 
     def open_plan(self):
         name = self.combo_school_plans.currentText()
@@ -59,14 +67,15 @@ class MyClasses(QDialog, QMainWindow):
         num = self.class_number.currentText()
         letter = self.class_letter.currentText()
         plan = self.combo_school_plans.currentText()
+        teacher = self.line_class_teacher.currentText()
         cur = self.con.cursor()
-        cur.execute("INSERT INTO classes(number, letter, plan, build) VALUES(?, ?, ?, ?)", [num, letter, plan, build])
+        cur.execute("INSERT INTO classes(number, letter, plan, build, teacher) VALUES(?, ?, ?, ?, ?)", [num, letter, plan, build, teacher])
         self.con.commit()
         self.select_data()
 
     def select_data(self):
         res = self.con.cursor().execute('SELECT * FROM classes').fetchall()
-        self.tableClasses.setColumnCount(4)
+        self.tableClasses.setColumnCount(5)
         self.tableClasses.setRowCount(0)
         for i, row in enumerate(res):
             self.tableClasses.setRowCount(
