@@ -38,6 +38,7 @@ class MyClasses(QDialog, QMainWindow):
 
     def update_class_teachers(self):
         self.line_class_teacher.clear()
+        self.line_class_teacher.addItems(['Нет учителя'])
         cur = self.con.cursor()
         FIO = [' '.join(i) for i in self.con.cursor().execute('SELECT surname, name, patronymic FROM teachers').fetchall()]
         print(FIO)

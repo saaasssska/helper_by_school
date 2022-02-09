@@ -20,6 +20,11 @@ class QNew_teachers(QDialog, QMainWindow):
         self.builds = []
         self.subject = []
         self.push_done.clicked.connect(self.all_done)
+        self.check_monday.setChecked(True)
+        self.check_tuesday.setChecked(True)
+        self.check_wednesday.setChecked(True)
+        self.check_thursday.setChecked(True)
+        self.check_friday.setChecked(True)
 
     def my_builds(self):
         for i in range(len(self.builds)):
@@ -58,6 +63,14 @@ class QNew_teachers(QDialog, QMainWindow):
         surname = self.line_surname.text()
         patronymic = self.line_patronymic.text()
         mail = self.line_mail.text()
+
+        monday = self.check_monday.isChecked()
+        tuesday = self.check_tuesday.isChecked()
+        wednesday = self.check_wednesday.isChecked()
+        thursday = self.check_thursday.isChecked()
+        friday = self.check_friday.isChecked()
+        saturday = self.check_saturday.isChecked()
+
         build = []
         for i in self.btn_group:
             if i.isChecked():
@@ -72,7 +85,9 @@ class QNew_teachers(QDialog, QMainWindow):
             self.label_error.setText('Заполните почту преподавателя')
         else:
             cur = self.con.cursor()
-            cur.execute('INSERT INTO teachers(surname, name, patronymic, mail) VALUES(?, ?, ?, ?)', [surname, name, patronymic, mail])
+            cur.execute('INSERT INTO teachers(surname, name, patronymic, mail, monday, tuesday, wednesday, thursday, friday, saturday)'
+                        'VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?)', [surname, name, patronymic, mail, monday, tuesday,
+                                                                 wednesday, thursday, friday, saturday])
             id_teacher = [i[0] for i in cur.execute("SELECT id_teacher FROM teachers WHERE name = ?"
                                                     "AND surname = ? AND patronymic = ?", (name, surname, patronymic,)).fetchall()]
             id_teacher = id_teacher[0]

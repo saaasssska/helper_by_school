@@ -123,6 +123,15 @@ class MyChange_teachers(QDialog):
         self.tableBuilds.setColumnCount(1)
         self.tableBuilds.setRowCount(0)
 
+        new_mail = self.line_change_teacher.text()
+        if len(new_mail) != 0:
+            surname, name, patronymic = self.combo_full_name.currentText().split()
+            cur = self.con.cursor()
+            cur.execute("""UPDATE teachers      
+                            SET mail = ?
+                            WHERE surname = ? AND name = ? AND patronymic = ?""", [new_mail, surname, name, patronymic])
+            self.con.commit()
+
         self.push_add_subject.setEnabled(False)
         self.push_del_subject.setEnabled(False)
         self.push_add_build.setEnabled(False)

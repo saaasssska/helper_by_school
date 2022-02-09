@@ -269,7 +269,7 @@
     <attribute name="title">
      <string>График работы</string>
     </attribute>
-    <widget class="QCheckBox" name="checkBox">
+    <widget class="QCheckBox" name="check_monday">
      <property name="geometry">
       <rect>
        <x>10</x>
@@ -287,7 +287,7 @@
       <string>Понелельник</string>
      </property>
     </widget>
-    <widget class="QCheckBox" name="checkBox_2">
+    <widget class="QCheckBox" name="check_tuesday">
      <property name="geometry">
       <rect>
        <x>140</x>
@@ -305,7 +305,7 @@
       <string>Вторник</string>
      </property>
     </widget>
-    <widget class="QCheckBox" name="checkBox_3">
+    <widget class="QCheckBox" name="check_wednesday">
      <property name="geometry">
       <rect>
        <x>10</x>
@@ -323,7 +323,7 @@
       <string>Среда</string>
      </property>
     </widget>
-    <widget class="QCheckBox" name="checkBox_4">
+    <widget class="QCheckBox" name="check_thursday">
      <property name="geometry">
       <rect>
        <x>140</x>
@@ -341,7 +341,7 @@
       <string>Четверг</string>
      </property>
     </widget>
-    <widget class="QCheckBox" name="checkBox_5">
+    <widget class="QCheckBox" name="check_friday">
      <property name="geometry">
       <rect>
        <x>10</x>
@@ -359,7 +359,7 @@
       <string>Пятница</string>
      </property>
     </widget>
-    <widget class="QCheckBox" name="checkBox_6">
+    <widget class="QCheckBox" name="check_saturday">
      <property name="geometry">
       <rect>
        <x>140</x>
