@@ -57,6 +57,7 @@ class QNew_teachers(QDialog, QMainWindow):
         name = self.line_name.text()
         surname = self.line_surname.text()
         patronymic = self.line_patronymic.text()
+        mail = self.line_mail.text()
         build = []
         for i in self.btn_group:
             if i.isChecked():
@@ -67,9 +68,11 @@ class QNew_teachers(QDialog, QMainWindow):
             self.label_error.setText("Выберите здание")
         elif len(self.subject) == 0:
             self.label_error.setText("Выберите предмет")
+        elif len(mail) == 0:
+            self.label_error.setText('Заполните почту преподавателя')
         else:
             cur = self.con.cursor()
-            cur.execute('INSERT INTO teachers(surname, name, patronymic) VALUES(?, ?, ?)', [surname, name, patronymic])
+            cur.execute('INSERT INTO teachers(surname, name, patronymic, mail) VALUES(?, ?, ?, ?)', [surname, name, patronymic, mail])
             id_teacher = [i[0] for i in cur.execute("SELECT id_teacher FROM teachers WHERE name = ?"
                                                     "AND surname = ? AND patronymic = ?", (name, surname, patronymic,)).fetchall()]
             id_teacher = id_teacher[0]
@@ -85,6 +88,7 @@ class QNew_teachers(QDialog, QMainWindow):
             self.tableWidget.setColumnCount(0)
             self.tableWidget.setRowCount(0)
             self.line_name.clear()
+            self.line_mail.clear()
             self.line_surname.clear()
             self.line_patronymic.clear()
             self.subject = []

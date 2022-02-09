@@ -39,13 +39,13 @@ class QMainWindow_1(QMainWindow):
         self.school_plan.addAction(self.lessons)
         self.school_plan.addAction(self.add_school_plan)
         self.school_plan.addAction(self.change_school_plan)
-        self.classes = menus.addMenu('Классы')
-        self.classes.addAction(self.add_class)
-        self.classes.addAction(self.del_class)
         self.teachers = menus.addMenu('Учителя')
         self.teachers.addAction(self.add_teachers)
         self.teachers.addAction(self.change_teachers)
         self.teachers.addAction(self.del_teachers)
+        self.classes = menus.addMenu('Классы')
+        self.classes.addAction(self.add_class)
+        self.classes.addAction(self.del_class)
         self.workload = menus.addMenu('Нагрузка учителей')
         self.workload.addAction(self.add_workload)
         self.workload.addAction(self.teacher_workload)
@@ -284,7 +284,6 @@ class QMainWindow_1(QMainWindow):
             event.accept()
         else:
             event.ignore()
-
 
 
 if __name__ == '__main__':

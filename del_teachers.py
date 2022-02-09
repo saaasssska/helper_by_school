@@ -28,6 +28,7 @@ class MyDelTeachers(QDialog):
         cur.execute("DELETE FROM teachers WHERE name = ?"
                     "AND surname = ? AND patronymic = ?", (name, surname, patronymic,))
         self.con.commit()
+        self.update_combo_box()
         self.loadTable()
 
     def loadTable(self):

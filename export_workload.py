@@ -2,7 +2,6 @@ import sys
 # -*- coding: utf-8 -*-
 import sqlite3
 from docx import Document
-from docx.shared import Inches
 from PyQt5 import uic
 from PyQt5.QtWidgets import QApplication, QMainWindow, QMessageBox, QDialog, QFileDialog
 
