@@ -21,6 +21,7 @@ from hand_schedule import MyHand_schedule
 from auto_schedule import MyAuto_schedule
 from change_schedule import MyChange_schedule
 from del_schedule import MyDel_schedule
+from create_choice import MyCreateChoice
 
 
 class QMainWindow_1(QMainWindow):
