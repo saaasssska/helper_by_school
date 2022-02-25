@@ -11,14 +11,14 @@ class MyHand_schedule(QDialog, QMainWindow):
         super().__init__()
         uic.loadUi('frontend\hand_schedule.ui', self)
         self.push_filters.clicked.connect(self.all_done)
-        self.lenn = 0
         self.con = sqlite3.connect('db_subjects.db')
         self.update_combo_box()
         self.combo_file_lessons.setEnabled(False)
         #self.combo_day.setEnabled(False)
 
     def all_done(self):
-        create = MyCreateChoice()
+        print(self.combo_subject.currentText())
+        create = MyCreateChoice(self.combo_subject.currentText())
         create.move(100, 100)
         create.exec()
 
@@ -34,19 +34,18 @@ class MyHand_schedule(QDialog, QMainWindow):
 
 
 class MyCreateChoice(MyHand_schedule):
-    def __init__(self):
+    def __init__(self, subject):
+        self.subject = subject
         super().__init__()
         uic.loadUi('frontend\create_choice.ui', self)
         self.names = []
+        self.lenn = 0
         self.con = sqlite3.connect('db_subjects.db')
         self.make_shablon()
 
     def make_shablon(self):
         cur = self.con.cursor()
-        subject = self.combo_subject.currentText()
-        print(subject)
-        id = [i[0] for i in cur.execute('SELECT id_teacher from teacher_subjects WHERE subject = ?', [subject])]
-        print(id)
+        id = [i[0] for i in cur.execute('SELECT id_teacher from teacher_subjects WHERE subject = ?', [self.subject])]
         for i in id:
             teacher = [' '.join(j) for j in cur.execute('SELECT surname, name, patronymic from teachers '
                                   'WHERE id_teacher = ?', [i])]
@@ -71,6 +70,9 @@ class MyCreateChoice(MyHand_schedule):
                 grid.addWidget(label, *position)
             else:
                 box = QComboBox()
+                cur = self.con.cursor()
+                classes = [' '.join(j) for j in cur.execute('SELECT class from teacher_workload WHERE subject = ?', [self.subject])]
+                box.addItems(classes)
                 grid.addWidget(box, *position)
 
         self.move(300, 150)

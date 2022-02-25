@@ -41,7 +41,6 @@ class MyClasses(QDialog, QMainWindow):
         self.line_class_teacher.addItems(['Нет учителя'])
         cur = self.con.cursor()
         FIO = [' '.join(i) for i in self.con.cursor().execute('SELECT surname, name, patronymic FROM teachers').fetchall()]
-        print(FIO)
         self.line_class_teacher.addItems(FIO)
 
     def open_plan(self):
