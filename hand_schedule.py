@@ -17,7 +17,6 @@ class MyHand_schedule(QDialog, QMainWindow):
         #self.combo_day.setEnabled(False)
 
     def all_done(self):
-        print(self.combo_subject.currentText())
         create = MyCreateChoice(self.combo_subject.currentText())
         create.move(100, 100)
         create.exec()
