@@ -37,7 +37,7 @@ class MyCreateChoice(MyHand_schedule):
         self.subject = subject
         super().__init__()
         uic.loadUi('frontend\create_choice.ui', self)
-        self.names = []
+        self.names = ["Учитель", "Понедельник", "Вторник", "Среда", "Четверг", "Пятница", "Суббота"]
         self.lenn = 0
         self.con = sqlite3.connect('db_subjects.db')
         self.make_shablon()
@@ -50,7 +50,7 @@ class MyCreateChoice(MyHand_schedule):
                                   'WHERE id_teacher = ?', [i])]
             if teacher:
                 self.names.append(teacher[0])
-                for i in range(8):
+                for i in range(6):
                     self.names.append(' ')
                 self.lenn += 1
         self.draw_pictures()
@@ -60,11 +60,11 @@ class MyCreateChoice(MyHand_schedule):
         grid = QGridLayout()
         self.setLayout(grid)
 
-        positions = [(i, j) for i in range(self.lenn) for j in range(9)]
+        positions = [(i, j) for i in range(self.lenn + 1) for j in range(7)]
         for position, name in zip(positions, self.names):
             if name == '':
                 continue
-            if position[1] == 0:
+            if position[1] == 0 or position[0] == 0:
                 label = QLabel(name)
                 grid.addWidget(label, *position)
             else:

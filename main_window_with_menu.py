@@ -54,6 +54,7 @@ class QMainWindow_1(QMainWindow):
         self.workload.addAction(self.problems)
         self.workload.addAction(self.export)
         self.schedule = menus.addMenu('Составить расписание')
+        self.schedule.setEnabled(False)
         self.schedule.addAction(self.hand_schedule)
         self.schedule.addAction(self.auto_schedule)
         self.schedule.addAction(self.change_schedule)
