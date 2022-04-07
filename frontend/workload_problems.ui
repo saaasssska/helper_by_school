@@ -14,7 +14,7 @@
    <string>problems</string>
   </property>
   <property name="styleSheet">
-   <string notr="true">background-color: rgb(85, 255, 255);</string>
+   <string notr="true">background-color: rgb(251, 238, 219);</string>
   </property>
   <widget class="QPushButton" name="push_find_problems">
    <property name="geometry">

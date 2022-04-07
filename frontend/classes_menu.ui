@@ -14,7 +14,7 @@
    <string>classes_menu</string>
   </property>
   <property name="styleSheet">
-   <string notr="true">background-color: rgb(85, 255, 255);</string>
+   <string notr="true">background-color: rgb(255, 242, 222);</string>
   </property>
   <widget class="QPushButton" name="push_add_Classes">
    <property name="geometry">

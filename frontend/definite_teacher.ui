@@ -14,7 +14,7 @@
    <string>definite_teacher</string>
   </property>
   <property name="styleSheet">
-   <string notr="true">background-color: rgb(85, 255, 255);</string>
+   <string notr="true">background-color: rgb(255, 242, 222);</string>
   </property>
   <widget class="QComboBox" name="combo_teacher_full_name">
    <property name="geometry">

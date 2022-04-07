@@ -20,7 +20,7 @@
    <string>builds</string>
   </property>
   <property name="styleSheet">
-   <string notr="true">background-color: rgb(126, 255, 255);</string>
+   <string notr="true">background-color: rgb(254, 241, 221);</string>
   </property>
   <widget class="QLineEdit" name="name_biuld">
    <property name="geometry">

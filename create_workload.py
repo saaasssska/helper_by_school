@@ -150,6 +150,7 @@ class MyCreate_workload(QDialog):
                  WHERE teacher_subjects.subject = ? AND teacher_builds.build = ?
                  ORDER BY teachers.name;""", (self.subject, build,))]
                 self.combo.addItems(teachers)
+                print(teachers)
                 positions = [(i, j) for i in range(num1 - 1, num1) for j in range(3)]
                 for position, name in zip(positions, load):
                     label = QLabel(name)

@@ -14,7 +14,7 @@
    <string>add_classes</string>
   </property>
   <property name="styleSheet">
-   <string notr="true">background-color: rgb(85, 255, 255);</string>
+   <string notr="true">background-color: rgb(253, 240, 220);</string>
   </property>
   <widget class="QPushButton" name="push_open_plan">
    <property name="enabled">

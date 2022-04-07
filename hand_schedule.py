@@ -2,7 +2,7 @@ import sys
 # -*- coding: utf-8 -*-
 from PyQt5 import uic
 from PyQt5.QtWidgets import QApplication, QMainWindow, QMessageBox, \
-    QDialog, QWidget, QVBoxLayout, QCheckBox, QGridLayout, QPushButton, QLabel, QComboBox
+    QDialog, QWidget, QVBoxLayout, QCheckBox, QGridLayout, QPushButton, QLabel, QComboBox, QLineEdit, QTextEdit
 import sqlite3
 
 
@@ -13,7 +13,6 @@ class MyHand_schedule(QDialog, QMainWindow):
         self.push_filters.clicked.connect(self.all_done)
         self.con = sqlite3.connect('db_subjects.db')
         self.update_combo_box()
-        self.combo_file_lessons.setEnabled(False)
         #self.combo_day.setEnabled(False)
 
     def all_done(self):
@@ -28,8 +27,6 @@ class MyHand_schedule(QDialog, QMainWindow):
         self.combo_builds.addItems(builds)
         lessons = [i[0] for i in cur.execute('SELECT name from my_subjects')]
         self.combo_subject.addItems(lessons)
-        days = ['Понедельник', 'Вторник', 'Среда', 'Четверг', 'Пятница', 'Суббота']
-        self.combo_day.addItems(days)
 
 
 class MyCreateChoice(MyHand_schedule):
@@ -37,8 +34,10 @@ class MyCreateChoice(MyHand_schedule):
         self.subject = subject
         super().__init__()
         uic.loadUi('frontend\create_choice.ui', self)
-        self.names = ["Учитель", "Понедельник", "Вторник", "Среда", "Четверг", "Пятница", "Суббота"]
+        self.names = []
         self.lenn = 0
+        teacher = []
+        self.setFixedSize(1200, 900)
         self.con = sqlite3.connect('db_subjects.db')
         self.make_shablon()
 
@@ -53,6 +52,7 @@ class MyCreateChoice(MyHand_schedule):
                 for i in range(6):
                     self.names.append(' ')
                 self.lenn += 1
+        print(teacher)
         self.draw_pictures()
 
 
@@ -64,7 +64,7 @@ class MyCreateChoice(MyHand_schedule):
         for position, name in zip(positions, self.names):
             if name == '':
                 continue
-            if position[1] == 0 or position[0] == 0:
+            if position[1] == 0:
                 label = QLabel(name)
                 grid.addWidget(label, *position)
             else:
@@ -74,5 +74,4 @@ class MyCreateChoice(MyHand_schedule):
                 box.addItems(classes)
                 grid.addWidget(box, *position)
 
-        self.move(300, 150)
-        self.setWindowTitle('Макет сетки')
+
