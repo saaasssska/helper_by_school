@@ -53,8 +53,13 @@ class QChange_plan(QDialog, QMainWindow):
         col = self.combo_col_2.currentText()
         r = csv.reader(open(name), delimiter=';', quotechar='"')
         lines = list(r)
-        lines.append([name_subject, col])
-        self.write_into_file(name, lines)
+        check = False
+        for i in lines:
+            if name_subject in i:
+                check = True
+        if not check:
+            lines.append([name_subject, col])
+            self.write_into_file(name, lines)
 
     def del_subject(self):
         name = "writer.csv"

@@ -18,13 +18,16 @@ class MyChange_teachers(QDialog):
         self.push_done.clicked.connect(self.all_done)
 
     def add_subject(self):
+        cur = self.con.cursor()
         subject = self.combo_subjects.currentText()
         id_teacher = self.get_id()
-        cur = self.con.cursor()
-        cur.execute("""INSERT INTO teacher_subjects(id_teacher, subject) VALUES(?, ?)""",
-                                [id_teacher, subject])
-        self.con.commit()
-        self.load_subjects(id_teacher)
+        have = [i[0] for i in cur.execute('SELECT subject from teacher_subjects '
+                                          'WHERE id_teacher = ?', [id_teacher])]
+        if subject not in have:
+            cur.execute("""INSERT INTO teacher_subjects(id_teacher, subject) VALUES(?, ?)""",
+                                    [id_teacher, subject])
+            self.con.commit()
+            self.load_subjects(id_teacher)
 
     def del_subject(self):
         subject = self.combo_subjects.currentText()
@@ -36,13 +39,16 @@ class MyChange_teachers(QDialog):
         self.load_subjects(id_teacher)
 
     def add_build(self):
+        cur = self.con.cursor()
         build = self.combo_builds.currentText()
         id_teacher = self.get_id()
-        cur = self.con.cursor()
-        cur.execute("""INSERT INTO teacher_builds(id_teacher, build) VALUES(?, ?)""",
-                        [id_teacher, build])
-        self.con.commit()
-        self.load_builds(id_teacher)
+        have = [i[0] for i in cur.execute('SELECT build from teacher_builds '
+                                          'WHERE id_teacher = ?', [id_teacher])]
+        if build not in have:
+            cur.execute("""INSERT INTO teacher_builds(id_teacher, build) VALUES(?, ?)""",
+                            [id_teacher, build])
+            self.con.commit()
+            self.load_builds(id_teacher)
 
     def del_build(self):
         build = self.combo_builds.currentText()
@@ -78,7 +84,7 @@ class MyChange_teachers(QDialog):
                                             WHERE id_teacher = ?""", [id_teacher])]
         self.tableSubjects.setColumnCount(1)
         self.tableSubjects.setRowCount(0)
-        self.tableSubjects.setHorizontalHeaderLabels(["Предмет"])
+        #self.tableSubjects.setHorizontalHeaderLabels(["Предмет"])
         for i, row in enumerate(subjects):
             self.tableSubjects.setRowCount(
                 self.tableSubjects.rowCount() + 1)
@@ -93,7 +99,7 @@ class MyChange_teachers(QDialog):
                                             WHERE id_teacher = ?""", [id_teacher])]
         self.tableBuilds.setColumnCount(1)
         self.tableBuilds.setRowCount(0)
-        self.tableBuilds.setHorizontalHeaderLabels(["Здание"])
+        #self.tableBuilds.setHorizontalHeaderLabels(["Здание"])
         for i, row in enumerate(builds):
             self.tableBuilds.setRowCount(
                 self.tableBuilds.rowCount() + 1)
@@ -115,11 +121,11 @@ class MyChange_teachers(QDialog):
         self.combo_builds.addItems(builds)
 
     def all_done(self):
-        self.tableSubjects.setHorizontalHeaderLabels(["Предмет"])
+        #self.tableSubjects.setHorizontalHeaderLabels(["Предмет"])
         self.tableSubjects.setColumnCount(1)
         self.tableSubjects.setRowCount(0)
 
-        self.tableBuilds.setHorizontalHeaderLabels(["Здание"])
+        #self.tableBuilds.setHorizontalHeaderLabels(["Здание"])
         self.tableBuilds.setColumnCount(1)
         self.tableBuilds.setRowCount(0)
 

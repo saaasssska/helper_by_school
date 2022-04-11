@@ -39,13 +39,13 @@
   </widget>
   <widget class="QTableWidget" name="tableWidget">
    <property name="enabled">
-    <bool>true</bool>
+    <bool>false</bool>
    </property>
    <property name="geometry">
     <rect>
      <x>40</x>
      <y>80</y>
-     <width>541</width>
+     <width>741</width>
      <height>491</height>
     </rect>
    </property>
@@ -55,44 +55,49 @@
     </font>
    </property>
    <property name="styleSheet">
-    <string notr="true">background-color: rgb(255, 255, 255);</string>
+    <string notr="true">background-color: rgb(255, 255, 255);
+color: rgb(0, 0, 0);</string>
    </property>
    <column>
     <property name="text">
      <string>Класс</string>
+    </property>
+    <property name="font">
+     <font>
+      <pointsize>10</pointsize>
+     </font>
     </property>
    </column>
    <column>
     <property name="text">
      <string>Здание</string>
     </property>
+    <property name="font">
+     <font>
+      <pointsize>10</pointsize>
+     </font>
+    </property>
    </column>
    <column>
     <property name="text">
      <string>Предмет</string>
+    </property>
+    <property name="font">
+     <font>
+      <pointsize>10</pointsize>
+     </font>
     </property>
    </column>
    <column>
     <property name="text">
      <string>Статус</string>
     </property>
+    <property name="font">
+     <font>
+      <pointsize>10</pointsize>
+     </font>
+    </property>
    </column>
-  </widget>
-  <widget class="QLabel" name="label">
-   <property name="geometry">
-    <rect>
-     <x>620</x>
-     <y>140</y>
-     <width>171</width>
-     <height>361</height>
-    </rect>
-   </property>
-   <property name="text">
-    <string/>
-   </property>
-   <property name="pixmap">
-    <pixmap>../pictures/pngwing.com (13).png</pixmap>
-   </property>
   </widget>
  </widget>
  <resources/>

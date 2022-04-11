@@ -69,9 +69,11 @@ class MyClasses(QDialog, QMainWindow):
         plan = self.combo_school_plans.currentText()
         teacher = self.line_class_teacher.currentText()
         cur = self.con.cursor()
-        cur.execute("INSERT INTO classes(number, letter, plan, build, teacher) VALUES(?, ?, ?, ?, ?)", [num, letter, plan, build, teacher])
-        self.con.commit()
-        self.select_data()
+        classes = list([list(i) for i in cur.execute('SELECT number, letter from classes')])
+        if [num, letter] not in classes:
+            cur.execute("INSERT INTO classes(number, letter, plan, build, teacher) VALUES(?, ?, ?, ?, ?)", [num, letter, plan, build, teacher])
+            self.con.commit()
+            self.select_data()
 
     def select_data(self):
         res = self.con.cursor().execute('SELECT * FROM classes').fetchall()

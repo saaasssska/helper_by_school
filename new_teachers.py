@@ -4,6 +4,7 @@ import sqlite3
 from PyQt5 import uic
 from PyQt5.QtWidgets import QApplication, QMainWindow, QMessageBox, QDialog, QVBoxLayout, QPushButton
 from PyQt5.QtWidgets import QWidget, QLabel, QCheckBox, QTableWidgetItem
+from PyQt5.QtGui import QFont
 
 
 class QNew_teachers(QDialog, QMainWindow):
@@ -48,8 +49,13 @@ class QNew_teachers(QDialog, QMainWindow):
 
     def add_subject(self):
         sub = self.combo_subjects.currentText()
-        self.subject.append([sub])
-        self.set_to_file()
+        check = False
+        for i in self.subject:
+            if sub in i:
+                check = True
+        if not check:
+            self.subject.append([sub])
+            self.set_to_file()
 
     def del_subject(self):
         del_sub = self.combo_subjects.currentText()
@@ -100,8 +106,6 @@ class QNew_teachers(QDialog, QMainWindow):
                 cur.execute('INSERT INTO teacher_subjects(id_teacher, subject) VALUES(?, ?)', [id_teacher, j])
             self.con.commit()
             self.label_error.setText("Учитель успешно сохранен")
-            self.tableWidget.setColumnCount(0)
-            self.tableWidget.setRowCount(0)
             self.line_name.clear()
             self.line_mail.clear()
             self.line_surname.clear()
@@ -120,4 +124,5 @@ class QNew_teachers(QDialog, QMainWindow):
             for j, elem in enumerate(row):
                 self.tableWidget.setItem(
                     i, j, QTableWidgetItem(str(elem)))
+        self.tableWidget.resizeColumnsToContents()
 

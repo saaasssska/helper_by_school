@@ -22,12 +22,17 @@ class QMy_school_plan(QDialog, QMainWindow):
         lesson = {}
         name = self.comboLessons.currentText()
         col = self.combo_col_lessons.currentText()
-        lesson['Наименование'] = name
-        lesson['Количество'] = col
-        self.combo_del_lesson.setEnabled(True)
-        self.plan.append(lesson)
-        self.write_lessons()
-        self.update_combo_del()
+        check = False
+        for i in self.plan:
+            if i['Наименование'] == name:
+                check = True
+        if not check:
+            lesson['Наименование'] = name
+            lesson['Количество'] = col
+            self.combo_del_lesson.setEnabled(True)
+            self.plan.append(lesson)
+            self.write_lessons()
+            self.update_combo_del()
 
     def del_lesson(self):
         name_lesson = self.combo_del_lesson.currentText()

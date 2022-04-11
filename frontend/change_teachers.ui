@@ -53,6 +53,9 @@
    </property>
   </widget>
   <widget class="QTableWidget" name="tableSubjects">
+   <property name="enabled">
+    <bool>false</bool>
+   </property>
    <property name="geometry">
     <rect>
      <x>50</x>
@@ -67,8 +70,19 @@
     </font>
    </property>
    <property name="styleSheet">
-    <string notr="true">background-color: rgb(255, 255, 255);</string>
+    <string notr="true">background-color: rgb(255, 255, 255);
+color: rgb(0, 0, 0);</string>
    </property>
+   <column>
+    <property name="text">
+     <string>Предмет</string>
+    </property>
+    <property name="font">
+     <font>
+      <pointsize>10</pointsize>
+     </font>
+    </property>
+   </column>
   </widget>
   <widget class="QLabel" name="label_2">
    <property name="geometry">
@@ -194,6 +208,9 @@
    </property>
   </widget>
   <widget class="QTableWidget" name="tableBuilds">
+   <property name="enabled">
+    <bool>false</bool>
+   </property>
    <property name="geometry">
     <rect>
      <x>460</x>
@@ -208,8 +225,19 @@
     </font>
    </property>
    <property name="styleSheet">
-    <string notr="true">background-color: rgb(255, 255, 255);</string>
+    <string notr="true">background-color: rgb(255, 255, 255);
+color: rgb(0, 0, 0);</string>
    </property>
+   <column>
+    <property name="text">
+     <string>Здание</string>
+    </property>
+    <property name="font">
+     <font>
+      <pointsize>10</pointsize>
+     </font>
+    </property>
+   </column>
   </widget>
   <widget class="QLabel" name="label_5">
    <property name="geometry">

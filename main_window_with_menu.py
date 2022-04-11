@@ -107,9 +107,11 @@ class QMainWindow_1(QMainWindow):
         self.hand_schedule.triggered.connect(self.my_hand_schedule)
         self.auto_schedule = QAction('Автоматическое составление расписания')
         self.auto_schedule.triggered.connect(self.my_auto_schedule)
+        self.auto_schedule.setEnabled(False)
         self.change_schedule = QAction('Изменение расписания')
         self.change_schedule.triggered.connect(self.my_change_schedule)
-        self.del_schedule = QAction('Просмотр и удаление расписания')
+        self.change_schedule.setEnabled(False)
+        self.del_schedule = QAction('Просмотр расписания')
         self.del_schedule.triggered.connect(self.my_del_schedule)
 
     def my_builds(self):
@@ -183,8 +185,6 @@ class QMainWindow_1(QMainWindow):
     def add_new_teachers(self):
         new_teachers = QNew_teachers()
         new_teachers.setFixedSize(821, 600)
-        new_teachers.tableWidget.setColumnCount(0)
-        new_teachers.tableWidget.setRowCount(0)
         new_teachers.update_combo_box()
         new_teachers.get_builds()
         menu.hide()
@@ -260,7 +260,8 @@ class QMainWindow_1(QMainWindow):
 
     def my_hand_schedule(self):
         hand_sched = MyHand_schedule()
-        hand_sched.setFixedSize(400, 320)
+        hand_sched.update_combo_box()
+        hand_sched.setFixedSize(400, 380)
         menu.hide()
         hand_sched.exec()
         menu.show()
@@ -281,7 +282,8 @@ class QMainWindow_1(QMainWindow):
 
     def my_del_schedule(self):
         del_sched = MyDel_schedule()
-        del_sched.setFixedSize(821, 600)
+        del_sched.setFixedSize(340, 200)
+        del_sched.update_combo_box()
         menu.hide()
         del_sched.exec()
         menu.show()
