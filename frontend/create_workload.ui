@@ -211,7 +211,7 @@
   </widget>
   <widget class="QTableWidget" name="tableWidget">
    <property name="enabled">
-    <bool>true</bool>
+    <bool>false</bool>
    </property>
    <property name="geometry">
     <rect>
@@ -227,16 +227,27 @@
     </font>
    </property>
    <property name="styleSheet">
-    <string notr="true">background-color: rgb(255, 255, 255);</string>
+    <string notr="true">background-color: rgb(255, 255, 255);
+color: rgb(0, 0, 0);</string>
    </property>
    <column>
     <property name="text">
      <string>ФИО</string>
     </property>
+    <property name="font">
+     <font>
+      <pointsize>10</pointsize>
+     </font>
+    </property>
    </column>
    <column>
     <property name="text">
      <string>Часы</string>
+    </property>
+    <property name="font">
+     <font>
+      <pointsize>10</pointsize>
+     </font>
     </property>
    </column>
   </widget>
@@ -421,22 +432,6 @@
    </property>
    <property name="text">
     <string/>
-   </property>
-  </widget>
-  <widget class="QLabel" name="label_10">
-   <property name="geometry">
-    <rect>
-     <x>660</x>
-     <y>480</y>
-     <width>81</width>
-     <height>101</height>
-    </rect>
-   </property>
-   <property name="text">
-    <string/>
-   </property>
-   <property name="pixmap">
-    <pixmap>../pictures/pngwing.com (9).png</pixmap>
    </property>
   </widget>
  </widget>

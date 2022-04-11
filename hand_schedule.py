@@ -61,7 +61,6 @@ class MyCreateChoice(MyHand_schedule):
     def draw_pictures(self):
         grid = QGridLayout()
         self.setLayout(grid)
-
         positions = [(i, j) for i in range(self.lenn + 1) for j in range(8)]
         for position, name in zip(positions, self.names):
             if name == '':
@@ -98,10 +97,13 @@ class MyCreateChoice(MyHand_schedule):
                 print(class1)
                 cur = self.con.cursor()
                 if class1:
-                    print(name1, self.day, self.subject, lesson, class1)
-                    cur.execute('INSERT INTO shedule(teacher, day, subject, lesson, class, build) VALUES (?,?,?,?,?,?)',
-                            [name1, self.day, self.subject, lesson, class1, self.build])
-                    self.con.commit()
+                    have = list([list(i) for i in cur.execute('SELECT teacher, day, subject, lesson, class '
+                                                              'from shedule')])
+                    if [name1, self.day, self.subject, lesson, class1] not in have:
+                        print(name1, self.day, self.subject, lesson, class1)
+                        cur.execute('INSERT INTO shedule(teacher, day, subject, lesson, class, build) VALUES (?,?,?,?,?,?)',
+                                [name1, self.day, self.subject, lesson, class1, self.build])
+                        self.con.commit()
 
 
 

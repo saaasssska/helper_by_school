@@ -82,8 +82,10 @@ class MyCreate_workload(QDialog):
                                      "WHERE surname = ? AND name = ? AND patronymic = ?",
                                      [surname, name, patronymic])]
             id_teacher = id_teacher[0]
-            cur.execute("INSERT INTO teacher_workload(id_teacher, subject, hours, build, class) "
-                        "VALUES(?, ?, ?, ?, ?)", [id_teacher, self.subject, hours, build, class1])
+            have = list([list(i) for i in cur.execute('SELECT id_teacher, subject, class from teacher_workload')])
+            if [id_teacher, self.subject, class1] not in have:
+                cur.execute("INSERT INTO teacher_workload(id_teacher, subject, hours, build, class) "
+                            "VALUES(?, ?, ?, ?, ?)", [id_teacher, self.subject, hours, build, class1])
             self.con.commit()
         self.change()
         self.push_save.setEnabled(False)
@@ -150,7 +152,6 @@ class MyCreate_workload(QDialog):
                  WHERE teacher_subjects.subject = ? AND teacher_builds.build = ?
                  ORDER BY teachers.name;""", (self.subject, build,))]
                 self.combo.addItems(teachers)
-                print(teachers)
                 positions = [(i, j) for i in range(num1 - 1, num1) for j in range(3)]
                 for position, name in zip(positions, load):
                     label = QLabel(name)
