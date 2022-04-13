@@ -22,6 +22,7 @@ class MyDel_schedule(QDialog, QMainWindow):
         global class1
         class1 = self.combo_class.currentText()
         view_shedule = MyViewShedule()
+        view_shedule.setWindowTitle('Просмотр расписания')
         view_shedule.exec()
 
 
@@ -36,7 +37,7 @@ class MyViewShedule(QDialog, QMainWindow):
     def generate(self):
         cur = self.con.cursor()
         for day in self.days:
-            for time in range(1, 7):
+            for time in range(1, 9):
                 lesson = 'Не указан'
                 cur = self.con.cursor()
                 s = [i[0] for i in cur.execute('SELECT subject from shedule '

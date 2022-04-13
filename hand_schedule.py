@@ -1,8 +1,9 @@
 import sys
 # -*- coding: utf-8 -*-
 from PyQt5 import uic
-from PyQt5.QtWidgets import QApplication, QMainWindow, QMessageBox, \
-    QDialog, QWidget, QVBoxLayout, QCheckBox, QGridLayout, QPushButton, QLabel, QComboBox, QLineEdit, QTextEdit
+from PyQt5.QtGui import QFont
+from PyQt5.QtWidgets import QMainWindow, \
+    QDialog, QGridLayout, QLabel, QComboBox
 import sqlite3
 
 
@@ -16,6 +17,7 @@ class MyHand_schedule(QDialog, QMainWindow):
 
     def all_done(self):
         create = MyCreateChoice(self.combo_subject.currentText(), self.combo_day.currentText(), self.combo_builds.currentText())
+        create.setWindowTitle('Ручное составление расписания')
         create.move(100, 100)
         create.exec()
 
@@ -60,6 +62,8 @@ class MyCreateChoice(MyHand_schedule):
 
     def draw_pictures(self):
         grid = QGridLayout()
+        # grid.setColumnMinimumWidth(0, 600)
+        # grid.setColumnStretch(0, 0)
         self.setLayout(grid)
         positions = [(i, j) for i in range(self.lenn + 1) for j in range(8)]
         for position, name in zip(positions, self.names):
@@ -76,15 +80,18 @@ class MyCreateChoice(MyHand_schedule):
                 id = list(cur.execute('SELECT id_teacher from teachers WHERE surname = ? AND name = ? AND patronymic = ?',
                                  [teacher_name[0], teacher_name[1], teacher_name[2]]))[0][0]
                 label = QLabel(name)
+                label.setStyleSheet("QLabel {font-size: 11pt;}; ")
+                #label.setFixedWidth(400)
                 grid.addWidget(label, *position)
-
             else:
                 box = QComboBox()
+                box.setStyleSheet("QComboBox {font-size: 11pt; background-color: white;}; ")
                 cur = self.con.cursor()
                 classes = [' '.join(j) for j in cur.execute('SELECT class from teacher_workload WHERE subject = ? AND id_teacher = ?',
                                                             [self.subject, id])]
                 box.addItem('')
                 box.addItems(classes)
+                #box.addItem('10Т (2) ' + 'Моделирование и прототипирование'[:7])
                 grid.addWidget(box, *position)
                 elem.append(box)
         self.lessons.append(elem)
@@ -94,13 +101,11 @@ class MyCreateChoice(MyHand_schedule):
             name1 = elem[0]
             for lesson in range(1, len(elem)):
                 class1 = elem[lesson].currentText()
-                print(class1)
                 cur = self.con.cursor()
                 if class1:
                     have = list([list(i) for i in cur.execute('SELECT teacher, day, subject, lesson, class '
                                                               'from shedule')])
                     if [name1, self.day, self.subject, lesson, class1] not in have:
-                        print(name1, self.day, self.subject, lesson, class1)
                         cur.execute('INSERT INTO shedule(teacher, day, subject, lesson, class, build) VALUES (?,?,?,?,?,?)',
                                 [name1, self.day, self.subject, lesson, class1, self.build])
                         self.con.commit()

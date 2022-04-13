@@ -3,10 +3,10 @@ import sys
 import sqlite3
 from PyQt5 import uic
 from PyQt5.QtWidgets import QApplication, QMainWindow, QMessageBox, QMenuBar, QAction
-from MyBuildings import QMyBuildings
-from MyLessons import QMyLessons
-from Classes import MyClasses
-from School_plan import QMy_school_plan
+from buildings import QMyBuildings
+from lessons import QMyLessons
+from classes import MyClasses
+from school_plan import QMy_school_plan
 from change_plans import QChange_plan
 from del_classes import My_del_classes
 from new_teachers import QNew_teachers
@@ -21,7 +21,7 @@ from hand_schedule import MyHand_schedule
 from auto_schedule import MyAuto_schedule
 from change_schedule import MyChange_schedule
 from del_schedule import MyDel_schedule
-from create_choice import MyCreateChoice
+from change_color import MyChange_color
 
 
 class QMainWindow_1(QMainWindow):
@@ -37,37 +37,47 @@ class QMainWindow_1(QMainWindow):
         font.setPointSize(10)
         menus.setFont(font)
         self.setMenuBar(menus)
+
         self.build = menus.addMenu('Здания')
-        self.build.setStyleSheet('background: white;')
+        self.build.setStyleSheet('background: white; selection-color: blue')
         self.build.addAction(self.builds)
+
         self.school_plan = menus.addMenu('Учебный план')
-        self.school_plan.setStyleSheet('background: white;')
+        self.school_plan.setStyleSheet('background: white; selection-color: blue')
         self.school_plan.addAction(self.lessons)
         self.school_plan.addAction(self.add_school_plan)
         self.school_plan.addAction(self.change_school_plan)
+
         self.teachers = menus.addMenu('Учителя')
-        self.teachers.setStyleSheet('background: white;')
+        self.teachers.setStyleSheet('background: white; selection-color: blue')
         self.teachers.addAction(self.add_teachers)
         self.teachers.addAction(self.change_teachers)
         self.teachers.addAction(self.del_teachers)
+
         self.classes = menus.addMenu('Классы')
-        self.classes.setStyleSheet('background: white;')
+        self.classes.setStyleSheet('background: white; selection-color: blue')
         self.classes.addAction(self.add_class)
         self.classes.addAction(self.del_class)
+
         self.workload = menus.addMenu('Нагрузка учителей')
-        self.workload.setStyleSheet('background: white;')
+        self.workload.setStyleSheet('background: white; selection-color: blue')
         self.workload.addAction(self.add_workload)
         self.workload.addAction(self.teacher_workload)
         self.workload.addAction(self.teacher_classes)
         self.workload.addAction(self.problems)
         self.workload.addAction(self.export)
+
         self.schedule = menus.addMenu('Составить расписание')
-        self.schedule.setStyleSheet('background: white;')
+        self.schedule.setStyleSheet('background: white; selection-color: blue')
         #self.schedule.setEnabled(False)
         self.schedule.addAction(self.hand_schedule)
         self.schedule.addAction(self.auto_schedule)
         self.schedule.addAction(self.change_schedule)
         self.schedule.addAction(self.del_schedule)
+
+        self.other = menus.addMenu('Иное')
+        self.other.setStyleSheet('background: white; selection-color: blue')
+        self.other.addAction(self.colors)
 
     def actions(self):
         self.builds = QAction('Здания', self)
@@ -92,7 +102,7 @@ class QMainWindow_1(QMainWindow):
         self.del_teachers = QAction('Просмотр и удаление учителей')
         self.del_teachers.triggered.connect(self.del_my_teacher)
 
-        self.add_workload = QAction('Добавить/Рудактировать нагрузку по предмету')
+        self.add_workload = QAction('Добавить/Редактировать нагрузку по предмету')
         self.add_workload.triggered.connect(self.new_workload)
         self.teacher_workload = QAction('Нагрузка конкретного учителя')
         self.teacher_workload.triggered.connect(self.load_definite_teacher)
@@ -114,8 +124,13 @@ class QMainWindow_1(QMainWindow):
         self.del_schedule = QAction('Просмотр расписания')
         self.del_schedule.triggered.connect(self.my_del_schedule)
 
+        self.colors = QAction('Внешний вид')
+        self.colors.triggered.connect(self.change_color)
+        #self.colors.setEnabled(False)
+
     def my_builds(self):
         Buildings = QMyBuildings()
+        Buildings.setWindowTitle('Здания')
         Buildings.setFixedSize(821, 600)
         Buildings.update_combo_box()
         Buildings.loadTable()
@@ -125,6 +140,8 @@ class QMainWindow_1(QMainWindow):
 
     def my_lesson(self):
         lessons = QMyLessons()
+        lessons.setFixedSize(821, 600)
+        lessons.setWindowTitle('Предметы')
         menu.hide()
         lessons.exec()
         menu.show()
@@ -132,6 +149,7 @@ class QMainWindow_1(QMainWindow):
     def school_plan(self):
         my_school_plan = QMy_school_plan()
         my_school_plan.setFixedSize(821, 600)
+        my_school_plan.setWindowTitle('Создание учебного плана')
         menu.hide()
         con = sqlite3.connect('db_subjects.db')
         my_school_plan.comboLessons.clear()
@@ -144,8 +162,9 @@ class QMainWindow_1(QMainWindow):
     def change_plans(self):
         my_change_plans = QChange_plan()
         my_change_plans.setFixedSize(821, 600)
+        my_change_plans.setWindowTitle('Изменение и удаление учебного плана')
         menu.hide()
-        my_change_plans.tableWidget.setHorizontalHeaderLabels(["Наименование", "Количество"])
+        #my_change_plans.tableWidget.setHorizontalHeaderLabels(["Наименование", "Количество"])
         my_change_plans.tableWidget.setColumnCount(2)
         my_change_plans.tableWidget.setRowCount(0)
         my_change_plans.line_new_file.clear()
@@ -163,9 +182,10 @@ class QMainWindow_1(QMainWindow):
     def add_classes(self):
         classes_plans = MyClasses()
         classes_plans.setFixedSize(821, 600)
+        classes_plans.setWindowTitle('Классы')
         menu.hide()
         classes_plans.select_data()
-        classes_plans.table_plan.setHorizontalHeaderLabels(["Предмет", "Количество"])
+        #classes_plans.table_plan.setHorizontalHeaderLabels(["Предмет", "Количество"])
         classes_plans.table_plan.setColumnCount(2)
         classes_plans.table_plan.setRowCount(0)
         classes_plans.update_builds()
@@ -175,6 +195,7 @@ class QMainWindow_1(QMainWindow):
 
     def del_my_classes(self):
         del_class = My_del_classes()
+        del_class.setWindowTitle('Просмотр и удаление классов')
         menu.hide()
         del_class.setFixedSize(821, 600)
         del_class.select_data()
@@ -184,6 +205,7 @@ class QMainWindow_1(QMainWindow):
 
     def add_new_teachers(self):
         new_teachers = QNew_teachers()
+        new_teachers.setWindowTitle('Учителя')
         new_teachers.setFixedSize(821, 600)
         new_teachers.update_combo_box()
         new_teachers.get_builds()
@@ -193,6 +215,7 @@ class QMainWindow_1(QMainWindow):
 
     def change_my_teacher(self):
         change_teacher = MyChange_teachers()
+        change_teacher.setWindowTitle('Редактирование учителей')
         change_teacher.setFixedSize(821, 600)
         change_teacher.update_combo_box()
         menu.hide()
@@ -201,6 +224,7 @@ class QMainWindow_1(QMainWindow):
 
     def del_my_teacher(self):
         delete_teacher = MyDelTeachers()
+        delete_teacher.setWindowTitle('Просмотр и удаление учителей')
         delete_teacher.setFixedSize(821, 600)
         delete_teacher.loadTable()
         delete_teacher.update_combo_box()
@@ -211,6 +235,7 @@ class QMainWindow_1(QMainWindow):
     def new_workload(self):
         create_work = MyCreate_workload()
         create_work.setFixedSize(821, 600)
+        create_work.setWindowTitle('Добавление/Редактирование нагрузки по предмету')
         create_work.update_combo_box()
         create_work.label_save.setText("")
         create_work.tableWidget.setHorizontalHeaderLabels(["Учитель", "Часы"])
@@ -222,6 +247,7 @@ class QMainWindow_1(QMainWindow):
 
     def load_definite_teacher(self):
         def_teacher = MyDefiniteTeacher()
+        def_teacher.setWindowTitle('Нагрузка конкретного учителя')
         def_teacher.setFixedSize(821, 600)
         def_teacher.update_combo_box()
         menu.hide()
@@ -231,6 +257,7 @@ class QMainWindow_1(QMainWindow):
     def my_classroom_teachers(self):
         classroom_teachers = MyClassTeachers()
         classroom_teachers.setFixedSize(821, 600)
+        classroom_teachers.setWindowTitle('Учителя класса')
         classroom_teachers.label_build.setText("Здание: ")
         classroom_teachers.update_combo_box()
         classroom_teachers.tableWidget.setHorizontalHeaderLabels(["Предмет", "Часы", "Учитель"])
@@ -242,6 +269,7 @@ class QMainWindow_1(QMainWindow):
 
     def find_workload_problems(self):
         problems = MyWorkloadProblems()
+        problems.setWindowTitle('Поиск проблем')
         problems.setFixedSize(821, 600)
         menu.hide()
         problems.tableWidget.setHorizontalHeaderLabels(["Класс", "Здание", "Предмет", "Статус"])
@@ -252,6 +280,7 @@ class QMainWindow_1(QMainWindow):
 
     def export_workload_in_word(self):
         export = MyExport_workload()
+        export.setWindowTitle('Экспорт')
         export.setFixedSize(821, 600)
         export.label_save.setText("")
         menu.hide()
@@ -260,6 +289,7 @@ class QMainWindow_1(QMainWindow):
 
     def my_hand_schedule(self):
         hand_sched = MyHand_schedule()
+        hand_sched.setWindowTitle('Фильтры')
         hand_sched.update_combo_box()
         hand_sched.setFixedSize(400, 380)
         menu.hide()
@@ -282,11 +312,21 @@ class QMainWindow_1(QMainWindow):
 
     def my_del_schedule(self):
         del_sched = MyDel_schedule()
+        del_sched.setWindowTitle('Фильтры')
         del_sched.setFixedSize(340, 200)
         del_sched.update_combo_box()
         menu.hide()
         del_sched.exec()
         menu.show()
+
+    def change_color(self):
+        color = MyChange_color()
+        color.setWindowTitle('Цвет')
+        color.setFixedSize(375, 300)
+        menu.hide()
+        color.exec()
+        menu.show()
+
 
     def closeEvent(self, event):
         reply = QMessageBox.question(
@@ -302,5 +342,6 @@ class QMainWindow_1(QMainWindow):
 if __name__ == '__main__':
     app = QApplication(sys.argv)
     menu = QMainWindow_1()
+    menu.setWindowTitle('Главный экран')
     menu.show()
     sys.exit(app.exec())

@@ -36,13 +36,15 @@ class QMyBuildings(QDialog, QMainWindow):
         if not name.isalnum() and not address.isalnum():
             pass
         cur = self.con.cursor()
-        if len(name) != 0 and len(address) != 0:
-            cur.execute("INSERT INTO builds(name, address) VALUES(?, ?)", [name, address])
-        self.con.commit()
-        self.loadTable()
-        self.name_biuld.clear()
-        address = self.address_build.clear()
-        self.update_combo_box()
+        have = [i[0] for i in cur.execute('SELECT name from builds')]
+        if name not in have:
+            if len(name) != 0 and len(address) != 0:
+                cur.execute("INSERT INTO builds(name, address) VALUES(?, ?)", [name, address])
+            self.con.commit()
+            self.loadTable()
+            self.name_biuld.clear()
+            address = self.address_build.clear()
+            self.update_combo_box()
 
     def loadTable(self):
         res = self.con.cursor().execute('SELECT * FROM builds').fetchall()
